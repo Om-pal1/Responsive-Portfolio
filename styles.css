@@ -1,0 +1,565 @@
+/* ==========================================================================
+   1. DESIGN TOKENS & FONTS
+   ========================================================================== */
+/* Importing high-end Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap');
+
+:root {
+    /* --- Vibrant Light Theme System --- */
+    --clr-primary: #6366f1; /* Modern Indigo */
+    --clr-primary-glow: rgba(99, 102, 241, 0.12);
+    --clr-primary-hover: #4f46e5;
+    --clr-accent: #10b981; /* Emerald Green Accent */
+    
+    --bg-main: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-nested: #f1f5f9;
+    
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --text-inv: #ffffff;
+    
+    --border-main: #e2e8f0;
+    --border-focus: #6366f1;
+    
+    /* --- Typography & Structural Engineering Tokens --- */
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --max-width: 1200px;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Premium ease-out-quint */
+    --shadow-sm: 0 2px 8px rgba(99, 102, 241, 0.02);
+    --shadow-md: 0 12px 30px -10px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 30px 60px -15px rgba(99, 102, 241, 0.15);
+}
+
+/* --- Premium Automatic Dark Mode Override --- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --clr-primary: #818cf8; /* Lighter Indigo for Dark Mode contrast */
+        --clr-primary-glow: rgba(129, 140, 248, 0.15);
+        --clr-primary-hover: #6366f1;
+        
+        --bg-main: #090d16;
+        --bg-surface: #111726;
+        --bg-surface-nested: #1b2336;
+        
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        
+        --border-main: #1e293b;
+        --shadow-md: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+        --shadow-lg: 0 30px 60px -15px rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* ==========================================================================
+   2. CORE ARCHITECTURE RESET & ACCESSIBILITY
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    text-size-adjust: none;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3, h4, .logo {
+    font-family: var(--font-heading);
+}
+
+*:focus-visible {
+    outline: 3px solid var(--border-focus);
+    outline-offset: 4px;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 20px;
+    background: var(--clr-primary);
+    color: var(--text-inv);
+    padding: 1rem 1.5rem;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    font-weight: 600;
+    z-index: 999;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-lg);
+}
+
+.skip-link:focus { top: 0; }
+main { flex: 1; }
+main[tabindex="-1"]:focus { outline: none; }
+.hidden { display: none !important; }
+
+/* ==========================================================================
+   3. GLOBAL HEADER & NAVIGATION (GLASSMORPHISM)
+   ========================================================================== */
+.global-header {
+    background-color: rgba(var(--bg-surface), 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-main);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-main);
+    text-decoration: none;
+    position: relative;
+}
+
+.brand-dot { 
+    color: var(--clr-primary); 
+    display: inline-block;
+    animation: pulseGlow 2s infinite;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 30px; /* Pill look */
+    transition: var(--transition-smooth);
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+    color: var(--clr-primary);
+    background-color: var(--clr-primary-glow);
+}
+
+.menu-toggle { display: none; }
+
+/* ==========================================================================
+   4. HERO SECTION (EYE-CATCHING GRADIENTS)
+   ========================================================================== */
+.hero-section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    min-height: calc(85vh - 90px);
+}
+
+.hero-content { max-width: 850px; }
+
+.hero-subheading {
+    color: var(--clr-primary);
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.25rem;
+}
+
+.hero-section h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-main);
+    margin-bottom: 2rem;
+}
+
+/* Linear-gradient masking technique for dynamic headers */
+.hero-section h1 span.gradient-text {
+    background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+    color: var(--text-muted);
+    margin-bottom: 3.5rem;
+    font-weight: 400;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+/* High-fidelity interactive button system */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.25rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--clr-primary);
+    color: var(--text-inv);
+    box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover {
+    background-color: var(--clr-primary-hover);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 35px -8px rgba(99, 102, 241, 0.5);
+}
+
+.btn-secondary {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: 2px solid var(--border-main);
+}
+
+.btn-secondary:hover {
+    border-color: var(--clr-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   5. INTERACTIVE SERVICES GRID
+   ========================================================================== */
+.services-section {
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-main);
+    padding: 8rem 2rem;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.card {
+    background-color: var(--bg-main);
+    padding: 3.5rem 2.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-main);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Interactive sliding highlight element */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--clr-primary), var(--clr-accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition-smooth);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+    background-color: var(--bg-surface);
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.75rem;
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+.card:hover .card-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+}
+
+.card p {
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   6. TWO-DIMENSIONAL PORTFOLIO/PROJECTS CARDS
+   ========================================================================== */
+.portfolio-section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6rem 2rem;
+}
+
+.section-desc {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-top: -3rem;
+    margin-bottom: 5rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+}
+
+.project-card {
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-main);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    transition: var(--transition-smooth);
+}
+
+@media (min-width: 900px) {
+    .project-card { grid-template-columns: 45% 55%; }
+}
+
+.project-card:hover {
+    transform: scale(1.01);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--clr-primary);
+}
+
+.project-image-placeholder {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--clr-primary);
+    border-bottom: 1px solid var(--border-main);
+}
+
+@media (min-width: 900px) {
+    .project-image-placeholder {
+        border-bottom: none;
+        border-right: 1px solid var(--border-main);
+    }
+}
+
+.project-details {
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-category {
+    color: var(--clr-accent);
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.project-details h2 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.project-details p {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    margin-bottom: 2.5rem;
+}
+
+.tech-tags li {
+    background-color: var(--bg-main);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border: 1px solid var(--border-main);
+}
+
+.project-link {
+    color: var(--clr-primary);
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    transition: var(--transition-smooth);
+}
+
+.project-link:hover {
+    color: var(--clr-primary-hover);
+    transform: translateX(5px);
+}
+
+/* ==========================================================================
+   7. FOOTER & ANIMATIONS
+   ========================================================================== */
+.global-footer {
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-main);
+    padding: 3rem 2rem;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.footer-info p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.social-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.social-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.social-nav a:hover {
+    color: var(--clr-primary);
+}
+
+/* Dynamic Animation Timelines */
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+/* ==========================================================================
+   8. NAVIGATION DRAWER RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header-container { position: relative; }
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    .hamburger {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background-color: var(--text-main);
+        position: relative;
+        transition: var(--transition-smooth);
+    }
+    .hamburger::before, .hamburger::after {
+        content: ''; position: absolute; width: 24px; height: 2px;
+        background-color: var(--text-main); left: 0; transition: var(--transition-smooth);
+    }
+    .hamburger::before { top: -6px; }
+    .hamburger::after { top: 6px; }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background-color: var(--bg-surface);
+        border-bottom: 1px solid var(--border-main);
+        padding: 2.5rem 2rem;
+        gap: 1.5rem;
+        box-shadow: var(--shadow-lg);
+    }
+    .nav-links.active { display: flex; }
+    .menu-toggle[aria-expanded="true"] .hamburger { background-color: transparent; }
+    .menu-toggle[aria-expanded="true"] .hamburger::before { transform: rotate(45deg); top: 0; }
+    .menu-toggle[aria-expanded="true"] .hamburger::after { transform: rotate(-45deg); top: 0; }
+}

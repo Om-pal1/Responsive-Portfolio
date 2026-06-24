@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Let's Collaborate</title>
+    <meta name="description" content="Get in touch to discuss software engineering opportunities, robotics initiatives, or custom media asset curation.">
+    <link rel="canonical" href="https://yourdomain.com/contact.html">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="global-header">
+        <div class="header-container">
+            <a href="index.html" class="logo" aria-label="Portfolio Home">DevEdit<span class="brand-dot">.</span></a>
+            <nav id="primary-navigation" aria-label="Main Navigation">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" aria-current="page">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <section class="contact-section" aria-labelledby="contact-heading">
+            <div class="form-container">
+                <h1 id="contact-heading">Get in Touch</h1>
+                <p class="contact-intro">Have an innovative project in mind or need assistance scaling your digital frameworks? Drop a message below.</p>
+                
+                <form action="#" method="POST" class="accessible-form" novalidate>
+                    
+                    <div id="form-errors" class="error-summary hidden" role="alert" aria-live="assertive" aria-atomic="true">
+                        <p class="error-title">Please correct the highlighted issues before submitting:</p>
+                        <ul id="error-list"></ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-name">Full Name <span class="required" aria-hidden="true">*</span></label>
+                        <input 
+                            type="text" 
+                            id="user-name" 
+                            name="name" 
+                            autocomplete="name" 
+                            required 
+                            aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-email">Email Address <span class="required" aria-hidden="true">*</span></label>
+                        <input 
+                            type="email" 
+                            id="user-email" 
+                            name="email" 
+                            autocomplete="email" 
+                            required 
+                            aria-required="true"
+                            aria-describedby="email-hint">
+                        <span id="email-hint" class="field-hint">Format: name@example.com</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message-subject">Subject</label>
+                        <input 
+                            type="text" 
+                            id="message-subject" 
+                            name="subject">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-message">Message Details <span class="required" aria-hidden="true">*</span></label>
+                        <textarea 
+                            id="user-message" 
+                            name="message" 
+                            rows="6" 
+                            required 
+                            aria-required="true"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit">Send Message</button>
+                </form>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="global-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Personal Portfolio. All rights reserved.</p>
+            <nav class="social-nav" aria-label="Social Media Links">
+                <ul>
+                    <li><a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub (Opens in a new tab)">GitHub</a></li>
+                    <li><a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn (Opens in a new tab)">LinkedIn</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.querySelector('.accessible-form');
+        const errorSummary = document.getElementById('form-errors');
+        const errorList = document.getElementById('error-list');
+
+        form.addEventListener('submit', function(e) {
+            let errors = [];
+            errorList.innerHTML = '';
+            
+            const name = document.getElementById('user-name');
+            const email = document.getElementById('user-email');
+            const message = document.getElementById('user-message');
+
+            if (!name.value.trim()) {
+                errors.push({ field: name, msg: "Full Name field cannot be left empty." });
+            }
+            if (!email.value.trim() || !email.value.includes('@')) {
+                errors.push({ field: email, msg: "Provide a valid email address." });
+            }
+            if (!message.value.trim()) {
+                errors.push({ field: message, msg: "Message details field cannot be left empty." });
+            }
+
+            if (errors.length > 0) {
+                e.preventDefault();
+                errorSummary.classList.remove('hidden');
+                
+                errors.forEach((err, index) => {
+                    const errorId = `err-msg-${index}`;
+                    err.field.setAttribute('aria-invalid', 'true');
+                    err.field.setAttribute('aria-describedby', errorId);
+
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = `#${err.field.id}`;
+                    link.textContent = err.msg;
+                    link.id = errorId;
+                    
+                    li.appendChild(link);
+                    errorList.appendChild(li);
+                });
+                
+                // Shift focus to error summaries instantly for keyboard and screen readers
+                errorSummary.focus();
+            }
+        });
+    </script>
+</body>
+</html>

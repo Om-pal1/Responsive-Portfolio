@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Professional Portfolio | Software Engineer & Creative Editor</title>
+    <meta name="description" content="Portfolio of a Software Engineer specializing in robust backend systems, robotics simulations, and digital media editing. Explore my technical projects and creative works.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="Professional Portfolio | Software Engineer & Creative Editor">
+    <meta property="og:description" content="Portfolio of a Software Engineer specializing in robust backend systems, robotics simulations, and digital media editing.">
+    <meta property="og:image" content="https://yourdomain.com/assets/og-image.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourdomain.com/">
+    <meta property="twitter:title" content="Professional Portfolio | Software Engineer & Creative Editor">
+    <meta property="twitter:description" content="Portfolio of a Software Engineer specializing in robust backend systems, robotics simulations, and digital media editing.">
+    <meta property="twitter:image" content="https://yourdomain.com/assets/og-image.jpg">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="global-header">
+        <div class="header-container">
+            <a href="index.html" class="logo" aria-label="Portfolio Home">
+                <span class="logo-text">DevEdit<span class="brand-dot">.</span></span>
+            </a>
+            
+            <nav id="primary-navigation" aria-label="Main Navigation">
+                <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle Menu">
+                    <span class="hamburger" aria-hidden="true"></span>
+                </button>
+                <ul id="nav-menu" class="nav-links">
+                    <li><a href="index.html" aria-current="page">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        
+        <section class="hero-section" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <p class="hero-subheading">Hi, my name is Om Pal</p>
+                <h1 id="hero-heading">Building intelligent systems & <span class="gradient-text">compelling digital narratives.</span></h1>
+                <p class="hero-description">
+                    I am a Software Engineer focused on developing clean, high-performance applications, robotics simulations, and creative digital media solutions.
+                </p>
+                <div class="hero-actions">
+                    <a href="projects.html" class="btn btn-primary">View My Work</a>
+                    <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="services-section" aria-labelledby="services-heading">
+            <div class="section-container">
+                <h2 id="services-heading" class="section-title">Core Expertise</h2>
+                <div class="grid-layout">
+                    
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">💻</div>
+                        <h3>Software Engineering</h3>
+                        <p>Designing robust backend architectures, algorithms, and automated workflows using enterprise frameworks.</p>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">🤖</div>
+                        <h3>Robotics & Simulation</h3>
+                        <p>Programming autonomous behaviors, sensor integrations, and machine learning models for simulated environments.</p>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">🎬</div>
+                        <h3>Digital Media Production</h3>
+                        <p>Crafting high-retention video assets and strategic visual storytelling tailored for online engagement.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="global-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <p>&copy; 2026 Personal Portfolio. All rights reserved.</p>
+            </div>
+            <nav class="social-nav" aria-label="Social Media Links">
+                <ul>
+                    <li><a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub (Opens in a new tab)">GitHub</a></li>
+                    <li><a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn (Opens in a new tab)">LinkedIn</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        const toggleBtn = document.querySelector('.menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        toggleBtn.addEventListener('click', () => {
+            const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+            toggleBtn.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
